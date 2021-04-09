@@ -1,0 +1,306 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
+
+@import "reset";
+@import "_veriables";
+@import "_mixins";
+
+body {
+  height: 100%;
+  font-family: "Lato", sans-serif;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.contacts {
+  background-color: #403b3b;
+  max-width: 768px;
+  margin: 0 auto;
+  border-left: 2px solid $blue-main;
+  border-right: 2px solid $blue-main;
+
+  &-wrapper {
+    padding: 1rem 0;
+    min-height: 100vh;
+  }
+
+  &-header {
+    padding-bottom: 1rem;
+    padding-top: 2rem;
+
+    &__wrapper {
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    &__add {
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 50%;
+      border: 2px solid $blue;
+      position: relative;
+
+      @include hover-opacity;
+
+      &::after {
+        content: "";
+        width: calc(1rem + 2px);
+        border-top: 2px solid $blue;
+        position: absolute;
+        top: 50%;
+        left: 6px;
+        transform: translateY(-50%);
+        background-color: $blue;
+      }
+
+      &::before {
+        content: "";
+        height: 1rem;
+        border: 1px solid $blue;
+        position: absolute;
+        transform: translateY(-50%);
+        top: 15px;
+        left: 14px;
+        background-color: $blue;
+      }
+    }
+
+    &__line {
+      width: 100%;
+      height: 2px;
+      background-color: white;
+      margin-top: 1rem;
+    }
+
+    &__search {
+      flex: 1 1 100%;
+      max-width: 100%;
+      margin-top: 1.5rem;
+      background-color: transparent;
+      outline: none;
+      border: none;
+      border-bottom: 2px solid $blue-main;
+      color: #a7a0a0;
+      display: flex;
+      padding-left: 0.5rem;
+    }
+  }
+
+  &-title {
+    font-size: 2rem;
+    color: white;
+  }
+
+  &-content {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+
+    &__title {
+      color: white;
+      font-size: 1.5rem;
+      background-color: #a7a0a0;
+    }
+
+    &__box {
+      margin: 0.5rem 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__elem {
+      color: white;
+      font-size: 1rem;
+      padding: 0.5rem 1.5rem;
+      width: 100%;
+      text-align: left;
+
+      &:hover {
+        color: $blue-main;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid white;
+      }
+    }
+  }
+
+  &-wrap {
+    padding: 0 1.5rem;
+  }
+
+  &-find {
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+
+    & > * {
+      color: white;
+      font-size: 0.9rem;
+      padding: 0.5rem 1.5rem;
+    }
+
+    &__title {
+      font-weight: 400;
+      color: white;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    & mark {
+      background-color: $blue;
+      color: white;
+    }
+  }
+
+  &-modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.5s ease-in;
+    z-index: -1;
+    display: flex;
+
+    &.active {
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    &__wrapper {
+      max-width: 600px;
+      background-color: #a7a0a0;
+      border-radius: 12px;
+      margin: 0 auto;
+      transition: 0.2s ease-in;
+      opacity: 0;
+      width: 100%;
+      padding-bottom: 0.5rem;
+
+      &.active {
+        opacity: 1;
+      }
+    }
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      align-items: center;
+    }
+
+    &__close {
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+
+      &:hover {
+        color: $blue-main;
+      }
+    }
+
+    &__main {
+      padding: 1rem;
+    }
+
+    &__title {
+      color: white;
+      font-size: 1.5rem;
+      background-color: #a7a0a0;
+      text-transform: uppercase;
+    }
+
+    &__group {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__label {
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    &__txt {
+      background-color: transparent;
+      outline: none;
+      color: white;
+      font-size: 0.9rem;
+      border: none;
+      border-bottom: 1px solid white;
+      padding-bottom: 0.5rem;
+      transition: 0.5s;
+
+      &:hover {
+        border-bottom: 1px solid $blue-main;
+        cursor: pointer;
+        color: $blue-main;
+      }
+    }
+
+    &__inp {
+      background-color: transparent;
+      outline: none;
+      color: white;
+      font-size: 0.9rem;
+      border: none;
+      border-bottom: 1px solid white;
+      padding-bottom: 0.5rem;
+      transition: 0.5s;
+
+      &:hover {
+        border-bottom: 1px solid $blue-main;
+        cursor: pointer;
+        color: $blue-main;
+      }
+    }
+
+    &__footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 1rem;
+    }
+
+    &__closed {
+      color: white;
+      border: 2px solid white;
+      background-color: transparent;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+
+      @include hover-opacity;
+    }
+
+    &__added {
+      color: $blue-main;
+      border: 2px solid $blue-main;
+      background-color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+
+      @include hover-opacity;
+    }
+
+    &__edit {
+      background-color: transparent;
+      outline: none;
+      border: none;
+      color: white;
+      font-family: "Lato", sans-serif;
+    }
+  }
+}
