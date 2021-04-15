@@ -228,6 +228,7 @@ body {
       font-size: 1rem;
       font-weight: bold;
       margin-bottom: 0.5rem;
+      text-transform: capitalize;
     }
 
     &__txt {
@@ -257,10 +258,18 @@ body {
       padding-bottom: 0.5rem;
       transition: 0.5s;
 
+      &::placeholder {
+        color: white;
+        transition: 0.5s;
+      }
+
       &:hover {
         border-bottom: 1px solid $blue-main;
         cursor: pointer;
-        color: $blue-main;
+
+        &::placeholder {
+          color: $blue-main;
+        }
       }
     }
 
@@ -268,7 +277,7 @@ body {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      padding: 1rem;
+      padding: 0 1rem 1rem;
     }
 
     &__closed {
@@ -280,19 +289,10 @@ body {
       font-weight: 600;
       font-size: 1rem;
 
-      @include hover-opacity;
-    }
-
-    &__added {
-      color: $blue-main;
-      border: 2px solid $blue-main;
-      background-color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 1rem;
-      font-weight: 600;
-      font-size: 1rem;
-
-      @include hover-opacity;
+      &:hover {
+        color: $blue-main;
+        border: 2px solid $blue-main;
+      }
     }
 
     &__edit {

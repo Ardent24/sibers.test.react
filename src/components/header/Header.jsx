@@ -1,6 +1,7 @@
 import React from "react";
-import HeaderBtn from "./Header-btn";
-import HeaderInp from "./Header-input";
+import PropTypes from "prop-types";
+import HeaderBtn from "./HeaderBtn";
+import HeaderInp from "./HeaderInput";
 
 export default function Header(props) {
   return (
@@ -8,8 +9,16 @@ export default function Header(props) {
       <div className="contacts-header__wrapper">
         <h1 className="contacts-title">Contacts</h1>
         <HeaderBtn modalStatus={props.modalStatus} />
-        <HeaderInp listUsers={props.listUsers} />
+        <HeaderInp
+          listUsers={props.listUsers}
+          onChangeSearchUser={props.onChangeSearchUser}
+        />
       </div>
     </header>
   );
 }
+
+Header.propTypes = {
+  listUsers: PropTypes.array,
+  modalStatus: PropTypes.func.isRequired,
+};
