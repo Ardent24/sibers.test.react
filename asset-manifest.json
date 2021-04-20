@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/sibers.test.react/static/css/main.88017f0b.chunk.css",
+    "main.js": "/sibers.test.react/static/js/main.5edb9b68.chunk.js",
+    "main.js.map": "/sibers.test.react/static/js/main.5edb9b68.chunk.js.map",
+    "runtime-main.js": "/sibers.test.react/static/js/runtime-main.10ba7b1a.js",
+    "runtime-main.js.map": "/sibers.test.react/static/js/runtime-main.10ba7b1a.js.map",
+    "static/js/2.4fccebd3.chunk.js": "/sibers.test.react/static/js/2.4fccebd3.chunk.js",
+    "static/js/2.4fccebd3.chunk.js.map": "/sibers.test.react/static/js/2.4fccebd3.chunk.js.map",
+    "index.html": "/sibers.test.react/index.html",
+    "static/css/main.88017f0b.chunk.css.map": "/sibers.test.react/static/css/main.88017f0b.chunk.css.map",
+    "static/js/2.4fccebd3.chunk.js.LICENSE.txt": "/sibers.test.react/static/js/2.4fccebd3.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.10ba7b1a.js",
+    "static/js/2.4fccebd3.chunk.js",
+    "static/css/main.88017f0b.chunk.css",
+    "static/js/main.5edb9b68.chunk.js"
+  ]
+}
