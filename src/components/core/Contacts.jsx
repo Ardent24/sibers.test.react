@@ -24,9 +24,7 @@ const Contacts = (props) => {
 };
 
 Contacts.propTypes = {
-  dataUser: PropTypes.object,
-  idUser: PropTypes.number,
-  listUsers: PropTypes.array,
+  data: PropTypes.array,
   modalStatus: PropTypes.func.isRequired,
   changeModalContent: PropTypes.func.isRequired,
 };

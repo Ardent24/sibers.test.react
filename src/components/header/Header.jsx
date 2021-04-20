@@ -8,17 +8,17 @@ export default function Header(props) {
     <header className="contacts-header">
       <div className="contacts-header__wrapper">
         <h1 className="contacts-title">Contacts</h1>
-        <HeaderBtn modalStatus={props.modalStatus} />
-        <HeaderInp
-          listUsers={props.listUsers}
-          onChangeSearchUser={props.onChangeSearchUser}
+        <HeaderBtn
+          modalStatus={props.modalStatus}
+          changeModalContent={props.changeModalContent}
         />
+        <HeaderInp onChangeSearchUser={props.onChangeSearchUser} />
       </div>
     </header>
   );
 }
 
 Header.propTypes = {
-  listUsers: PropTypes.array,
   modalStatus: PropTypes.func.isRequired,
+  onChangeSearchUser: PropTypes.func,
 };

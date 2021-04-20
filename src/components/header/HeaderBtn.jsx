@@ -1,15 +1,14 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export default function HeaderBtn(props) {
-  return (
-    <button
-      className="contacts-header__add"
-      onClick={() => props.modalStatus(true)}
-    />
-  );
+  const onClickBtn = () => {
+    props.modalStatus(true);
+    props.changeModalContent(null);
+  };
+  return <button className="contacts-header__add" onClick={onClickBtn} />;
 }
 
 HeaderBtn.propTypes = {
-  modalStatus: PropTypes.func.isRequired
+  modalStatus: PropTypes.func.isRequired,
 };

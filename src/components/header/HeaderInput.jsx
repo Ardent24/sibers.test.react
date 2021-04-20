@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function HeaderInp(props) {
-
   const onChangeInp = (event) => props.onChangeSearchUser(event.target.value);
 
   return (
@@ -15,9 +14,8 @@ function HeaderInp(props) {
   );
 }
 
-
 HeaderInp.propTypes = {
-  listUsers: PropTypes.array,
+  onChangeSearchUser: PropTypes.func.isRequired,
 };
 
 export default HeaderInp;

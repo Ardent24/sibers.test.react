@@ -3,18 +3,21 @@ import PropTypes from "prop-types";
 
 const ContactsItem = (props) => {
   const USER = props.dataUser;
-  //const PREV_USER = props.listUsers[props.idUser - 1];
+  const PREV_USER = props.listUsers[props.idUser - 1];
 
   const onChangeDataModal = () => {
     props.modalStatus(true);
     props.changeModalContent(USER);
   };
 
-  // const templateTitleBtn = (
-  //   <h2 className="contacts-content__title contacts-wrap" key={USER.name.charAt(0)}>
-  //     {USER.name.charAt(0).toUpperCase()}
-  //   </h2>
-  // );
+  const templateTitleBtn = (
+    <h2
+      className="contacts-content__title contacts-wrap"
+      key={USER.name.charAt(0)}
+    >
+      {USER.name.charAt(0).toUpperCase()}
+    </h2>
+  );
 
   const templateBtn = (
     <button
@@ -27,9 +30,31 @@ const ContactsItem = (props) => {
   );
 
   const onChangeTemplate = () => {
-    return <>{templateBtn}</>
-    // if (PREV_USER === undefined) return null;
-    // // if (props.idUser === 1) return <>{templateTitleBtn}</>;
+    if (PREV_USER === undefined) {
+      return (
+        <>
+          {templateTitleBtn}
+          {templateBtn}
+        </>
+      );
+    }
+    if (USER.name.charAt(0) !== PREV_USER.name.charAt(0)) {
+      return (
+        <>
+          {templateTitleBtn}
+          {templateBtn}
+        </>
+      );
+    } else {
+      return <>{templateBtn}</>;
+    }
+    // if (){
+    //   return
+    // } else{
+    //   return ;
+    // }
+
+    // if (props.idUser === 1) return <>{templateTitleBtn}</>;
     // if (USER.name.charAt(0) !== PREV_USER.name.charAt(0)) {
     //   return (
     //     <>
@@ -46,9 +71,10 @@ const ContactsItem = (props) => {
 };
 
 ContactsItem.propTypes = {
-  dataUser: PropTypes.object,
   idUser: PropTypes.number,
   listUsers: PropTypes.array,
+  dataUser: PropTypes.object,
+  data: PropTypes.array,
   modalStatus: PropTypes.func.isRequired,
   changeModalContent: PropTypes.func.isRequired,
 };

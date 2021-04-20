@@ -13,14 +13,20 @@ const ModalGroup = (props) => {
         infoGroup={props.infoGroup}
         onChangeNewUser={props.onChangeNewUser}
         newUser={props.newUser}
+        onChangeUsers={props.onChangeUsers}
+        localeStorageUsers={props.localeStorageUsers}
       />
     </div>
   );
 };
 
 ModalGroup.propTypes = {
+  modalContent: PropTypes.object,
   infoGroup: PropTypes.string.isRequired,
-  modalContent: PropTypes.func
+  onChangeNewUser: PropTypes.func,
+  newUser: PropTypes.object,
+  onChangeUsers: PropTypes.func,
+  localeStorageUsers: PropTypes.array
 }
 
 export default ModalGroup;

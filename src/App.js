@@ -25,7 +25,9 @@ export default function App() {
     } else {
       setUsers(sortUsers(users));
     }
-  }, [users]);
+    // eslint-disable-next-line
+  }, []);
+  //console.log(users)
 
   const filterUsers =
     users &&
@@ -46,9 +48,8 @@ export default function App() {
     <div className="contacts">
       <Header
         modalStatus={modalStatus}
-        listUsers={filterUsers}
-        onChangeUsers={onChangeUsers}
         onChangeSearchUser={onChangeSearchUser}
+        changeModalContent={changeModalContent}
       />
       <Contacts
         data={filterUsers}
@@ -62,6 +63,7 @@ export default function App() {
         modalContent={modalContent}
         onChangeUsers={onChangeUsers}
         listUsers={filterUsers}
+        localeStorageUsers={users}
       />
     </div>
   );
