@@ -13,8 +13,8 @@ const Contacts = (props) => {
               dataUser={user}
               idUser={i}
               listUsers={arrayUsers}
-              modalStatus={props.modalStatus}
-              changeModalContent={props.changeModalContent}
+              // modalStatus={props.modalStatus}
+              // changeModalContent={props.changeModalContent}
               key={i}
             />
           ))}

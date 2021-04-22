@@ -15,56 +15,56 @@ export default function App() {
   const [modalContent, setModalContent] = useState(null);
   const [searchUser, setSearchUser] = useState("");
 
-  useEffect(() => {
-    if (!users) {
-      (async function func() {
-        const promiseUsers = await requestUsers();
-        const LS_USERS = localeStorageUsers(promiseUsers);
-        setUsers(sortUsers(LS_USERS));
-      })();
-    } else {
-      setUsers(sortUsers(users));
-    }
-    // eslint-disable-next-line
-  }, []);
-  //console.log(users)
+  // useEffect(() => {
+  //   if (!users) {
+  //     (async function func() {
+  //       const promiseUsers = await requestUsers();
+  //       const LS_USERS = localeStorageUsers(promiseUsers);
+  //       setUsers(sortUsers(LS_USERS));
+  //     })();
+  //   } else {
+  //     setUsers(sortUsers(users));
+  //   }
+  //   // eslint-disable-next-line
+  // }, []);
 
-  const filterUsers =
-    users &&
-    users.filter((user) => {
-      return user.name.toLowerCase().includes(searchUser.toLowerCase());
-    });
-
-  const onChangeSearchUser = (search) => setSearchUser(search);
-
-  const modalStatus = (isOpen) => setOpenModal(isOpen);
-
-  const changeModalContent = (changeModalContent) =>
-    setModalContent(changeModalContent);
-
-  const onChangeUsers = (editListUsers) => setUsers(editListUsers);
+  // const filterUsers =
+  //   users &&
+  //   users.filter((user) => {
+  //     return user.name.toLowerCase().includes(searchUser.toLowerCase());
+  //   });
+  //
+  // const onChangeSearchUser = (search) => setSearchUser(search);
+  //
+  // const modalStatus = (isOpen) => setOpenModal(isOpen);
+  //
+  // const changeModalContent = (changeModalContent) =>
+  //   setModalContent(changeModalContent);
+  //
+  // const onChangeUsers = (editListUsers) => setUsers(editListUsers);
 
   return (
     <div className="contacts">
-      <Header
-        modalStatus={modalStatus}
-        onChangeSearchUser={onChangeSearchUser}
-        changeModalContent={changeModalContent}
-      />
-      <Contacts
-        data={filterUsers}
-        modalStatus={modalStatus}
-        changeModalContent={changeModalContent}
-      />
-      <Modal
-        isOpenModal={isOpenModal}
-        modalStatus={modalStatus}
-        changeModalContent={changeModalContent}
-        modalContent={modalContent}
-        onChangeUsers={onChangeUsers}
-        listUsers={filterUsers}
-        localeStorageUsers={users}
-      />
+      <Contacts />
+      {/*<Header*/}
+      {/*  modalStatus={modalStatus}*/}
+      {/*  onChangeSearchUser={onChangeSearchUser}*/}
+      {/*  changeModalContent={changeModalContent}*/}
+      {/*/>*/}
+      {/*<Contacts*/}
+      {/*  data={filterUsers}*/}
+      {/*  modalStatus={modalStatus}*/}
+      {/*  changeModalContent={changeModalContent}*/}
+      {/*/>*/}
+      {/*<Modal*/}
+      {/*  isOpenModal={isOpenModal}*/}
+      {/*  modalStatus={modalStatus}*/}
+      {/*  changeModalContent={changeModalContent}*/}
+      {/*  modalContent={modalContent}*/}
+      {/*  onChangeUsers={onChangeUsers}*/}
+      {/*  listUsers={filterUsers}*/}
+      {/*  localeStorageUsers={users}*/}
+      {/*/>*/}
     </div>
   );
 }

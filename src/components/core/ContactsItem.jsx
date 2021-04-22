@@ -48,23 +48,6 @@ const ContactsItem = (props) => {
     } else {
       return <>{templateBtn}</>;
     }
-    // if (){
-    //   return
-    // } else{
-    //   return ;
-    // }
-
-    // if (props.idUser === 1) return <>{templateTitleBtn}</>;
-    // if (USER.name.charAt(0) !== PREV_USER.name.charAt(0)) {
-    //   return (
-    //     <>
-    //       {templateTitleBtn}
-    //       {templateBtn}
-    //     </>
-    //   );
-    // } else {
-    //   return <>{templateBtn}</>;
-    // }
   };
 
   return <>{onChangeTemplate()}</>;
@@ -75,8 +58,8 @@ ContactsItem.propTypes = {
   listUsers: PropTypes.array,
   dataUser: PropTypes.object,
   data: PropTypes.array,
-  modalStatus: PropTypes.func.isRequired,
-  changeModalContent: PropTypes.func.isRequired,
+  // modalStatus: PropTypes.func.isRequired,
+  // changeModalContent: PropTypes.func.isRequired,
 };
 
 export default ContactsItem;

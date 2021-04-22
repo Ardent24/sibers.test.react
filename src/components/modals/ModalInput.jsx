@@ -25,11 +25,10 @@ const ModalInput = (props) => {
     setInputState(valueInp);
 
     if (infoUser) {
-      const newArrayUsers = [...props.localeStorageUsers].filter((user) => {
-        if (user.id === infoUser.id) {
-           (user[infoGroup] = valueInp);
-        }
-        return user
+      const newArrayUsers = [...props.localeStorageUsers].map((user) => {
+        if (user.id === infoUser.id) user[infoGroup] = valueInp;
+
+        return user;
       });
 
       localStorage.setItem("users", JSON.stringify(newArrayUsers));
