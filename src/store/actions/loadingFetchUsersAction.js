@@ -15,7 +15,7 @@ export const fetchUsersRequest = (users) => {
   };
 };
 
-export const fetchUsersAction = () => {
+export const loadingFetchUsersAction = () => {
   return (dispatch) => {
     fetch("https://demo.sibers.com/users")
       .then((res) => res.json())
@@ -26,7 +26,8 @@ export const fetchUsersAction = () => {
         dispatch(fetchUsersRequest(sortingUsers));
 
         const state = store.getState();
-        localStorage.set("state", state);
+        const listUsers =  state.listUsers;
+        localStorage.set("users", listUsers);
       });
   };
 };

@@ -1,6 +1,6 @@
-//Core react
+//CORE
 import React from "react";
-//Components
+//COMPONENTS
 import Header from "./components/header/Header";
 import Contacts from "./components/contacts/Contacts";
 import Modal from "./components/modal/Modal";

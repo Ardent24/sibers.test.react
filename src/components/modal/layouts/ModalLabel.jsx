@@ -2,12 +2,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const ModalLabel = ({ validHook }) => (
-  <label className="contacts-modal__label">{validHook}</label>
+const ModalLabel = ({ inputType }) => (
+  <label className="contacts-modal__label">{inputType}</label>
 );
 
 ModalLabel.propTypes = {
-  // inputType: PropTypes.string.isRequired,
+  inputType: PropTypes.string.isRequired,
 };
 
 export default ModalLabel;

@@ -4,21 +4,22 @@ import { enhancerStore } from "./debugger";
 //REDUCER
 import { rootReducer } from "./rootReducer";
 //ASYNC ACTIONS
-import { fetchUsersAction } from "./actions/loadingUsersAction";
+import { loadingFetchUsersAction } from "./actions/loadingFetchUsersAction";
+//ACTIONS
+import { loadingUsersLS } from "./actions/loadingLsUsersAction";
 //LocalStorageLibrary
 import localStorage from "store";
 
-const loadedState = localStorage.get("state");
+const loadedState = localStorage.get("users");
 
 export const store = loadedState
-  ? createStore(rootReducer, loadedState, enhancerStore)
+  ? createStore(rootReducer, enhancerStore)
   : createStore(rootReducer, enhancerStore);
 
-//requestUsers
-if (!loadedState) store.dispatch(fetchUsersAction());
+if (loadedState) {
+  store.dispatch(loadingUsersLS());
+} else {
+  store.dispatch(loadingFetchUsersAction());
+}
 
-store.subscribe(() => {
-  // const state = store.getState();
-  // console.log(state.isOpenModal.disabledBtn, 'disabl btn')
-  // localStorage.set("state", state);
-});
+store.subscribe(() => {});

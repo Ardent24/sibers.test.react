@@ -1,16 +1,18 @@
-import { GET_INFO_USER, CHANGE_NEW_USER, RESET_USER_INFO } from "./types";
+import { GET_INFO_USER, RESET_INFO_USER, ADD_INFO_USER } from "./types";
 
 export const getInfoUser = (data) => ({
   type: GET_INFO_USER,
   payload: data,
 });
 
-export const changeNewUser = (data) => ({
-  type: CHANGE_NEW_USER,
+export const resetInfoUser = (data) => ({
+  type: RESET_INFO_USER,
   payload: data,
 });
 
-export const resetUserInfo = (data) => ({
-  type: RESET_USER_INFO,
-  payload: data,
+export const addInfoUser = (type, val, id) => ({
+  type: ADD_INFO_USER,
+  payloadType: type,
+  payloadVal: val,
+  payloadId: id,
 });

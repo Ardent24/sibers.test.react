@@ -7,91 +7,94 @@ import ModalGroup from "./layouts/ModalGroup";
 import ModalFooter from "./layouts/ModalFooter";
 //ACTIONS
 import { hideModal } from "../../store/actions/isActiveModalActions";
-import { resetUserInfo } from "../../store/actions/getUserAction";
-//REGEX
+import { addInfoUser, resetInfoUser } from "../../store/actions/getUserAction";
+import {
+  inpDirty,
+  inputNotValid,
+  inputValid,
+  isValidForm,
+} from "../../store/actions/validationActions";
+//REGEXES
 import { regexPhone, regexMail, regexName } from "../../modules/regex";
 
 //CUSTOM HOOK VALIDATION
-const useInput = (typeValid = "name") => {
-  const user = useSelector((state) => state.infoUser.user);
+const useInput = (type) => {
+  const usersLength = useSelector((state) => state.listUsers.users).length;
+  const user = useSelector((state) => state.infoUser);
+  const validations = useSelector((state) => state.validations);
+  const changeNewContact = useSelector((state) => state.isOpenModal.newContact)
+
+  const dispatch = useDispatch();
 
   const [value, setValue] = useState("");
   const [placeholder, setPlaceholder] = useState("");
+  const [textError, setTextError] = useState("");
+
+  const errorMessage = validations[type].errorMessage;
+  const isDirty = validations[type].isDirty;
+
+  const nameValid = validations.name.isValid;
+  const emailValid = validations.email.isValid;
+  const phoneValid = validations.phone.isValid;
+
+  //VALIDATION FORM
+  useEffect(() => {
+    const isRegex = (value) => {
+      if (type === "name") return regexName(value);
+      if (type === "email") return regexMail(value);
+      if (type === "phone") return regexPhone(value);
+    };
+
+    if (isDirty && !isRegex(value)) {
+      setTextError(errorMessage);
+      dispatch(inputNotValid(type));
+    } else if (isDirty && isRegex(value)) {
+      setTextError("");
+      dispatch(inputValid(type));
+    } else {
+      setTextError("");
+    }
+  }, [dispatch, errorMessage, isDirty, type, value]);
+
+  //ACTIVE BTN MODAL
+  useEffect(() => {
+    if (nameValid && emailValid && phoneValid) {
+      dispatch(isValidForm());
+    }
+  }, [dispatch, emailValid, nameValid, phoneValid]);
 
   //OUTPUT PLACEHOLDER/VALUE
   useEffect(() => {
-    if (user[typeValid]) {
-      setValue(user[typeValid]);
+    if (user[type]) {
+      setValue(user[type]);
     } else {
-      setPlaceholder(`Enter your ${typeValid}`);
-      setValue(user[typeValid]);
+      setPlaceholder(`Enter your ${type}`);
+      setValue(user[type]);
     }
-  }, [typeValid, user]);
-
-  const [isDirty, setDirty] = useState(false);
-  const [textError, setTextError] = useState("");
-
-  const [validations, setValidations] = useState({
-    name: {
-      isValid: false,
-      isDirty: false,
-      errorMessage: "incorrect name",
-      rule: regexName,
-    },
-    email: {
-      isValid: false,
-      isDirty: false,
-      errorMessage: "incorrect email",
-      rule: regexMail,
-    },
-    phone: {
-      isValid: false,
-      isDirty: false,
-      errorMessage: "incorrect phone",
-      rule: regexPhone,
-    },
-  });
-
-  useEffect(() => {
-    const isDirty = validations[typeValid].isDirty;
-    const isRegex = validations[typeValid].rule(value);
-    const error = validations[typeValid].errorMessage;
-
-    if (isDirty && !isRegex) {
-      setTextError(error);
-    } else if (isDirty && isRegex) {
-      setTextError("");
-      setValidations({
-        ...validations,
-        [typeValid]: { ...validations[typeValid], isValid: true },
-      });
-    } else {
-      setTextError("");
-    }
-
-    console.log(validations)
-  }, [value]);
+  }, [type, user]);
 
   const onChange = (ev) => {
-    setDirty(true);
-    setValue(ev.target.value);
+    const val = ev.target.value;
 
-    setValidations({
-      ...validations,
-      [typeValid]: { ...validations[typeValid], isDirty: true },
-    });
+    setValue(val);
+    dispatch(inpDirty(type));
+
+    if (type === "name") {
+      const str = val[0].toUpperCase() + val.slice(1);
+      dispatch(addInfoUser(type, str, usersLength));
+    } else {
+      dispatch(addInfoUser(type, val, usersLength));
+    }
   };
   const onBlur = (ev) => {
-    setDirty(true);
-    setValue(ev.target.value);
-    setValidations({
-      ...validations,
-      [typeValid]: { ...validations[typeValid], isDirty: true },
-    });
+    const val = ev.target.value;
+
+    dispatch(inpDirty(type));
+    setValue(val);
   };
 
   return {
-    typeValid,
+    type,
     onChange,
     onBlur,
     value,
@@ -101,13 +104,13 @@ const useInput = (typeValid = "name") => {
 };
 
 const Modal = () => {
-  const changeModal = useSelector((state) => state.isOpenModal.isOpenModal);
-  const user = useSelector((state) => state.infoUser.user);
+  const { newContact, isOpenModal } = useSelector((state) => state.isOpenModal);
+  const user = useSelector((state) => state.infoUser);
   const dispatch = useDispatch();
 
   const hideModalClick = () => {
     dispatch(hideModal());
-    dispatch(resetUserInfo());
+    dispatch(resetInfoUser());
   };
 
   const outSideModalClick = (ev) => {
@@ -123,13 +126,13 @@ const Modal = () => {
 
   return (
     <div
-      className={cx("contacts-modal", { active: changeModal })}
+      className={cx("contacts-modal", { active: isOpenModal })}
       onClick={outSideModalClick}
     >
-      <form className={cx("contacts-modal__wrapper", { active: changeModal })}>
+      <form className={cx("contacts-modal__wrapper", { active: isOpenModal })}>
         <header className="contacts-modal__header">
           <h4 className="contacts-modal__title">
-            {user.name ? user.name : "ADD CONTACT"}
+            {newContact ?  "ADD CONTACT" : user.name}
           </h4>
           <button className="contacts-modal__close" onClick={hideModalClick}>
             &times;

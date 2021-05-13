@@ -1,8 +1,8 @@
-import { SHOW_MODAL, HIDE_MODAL, DISABLED_BTN, ACTIVE_BTN } from "../actions/types";
+import { SHOW_MODAL, HIDE_MODAL, ADD_CONTACT } from "../actions/types";
 
 const initialState = {
   isOpenModal: false,
-  disabledBtn: true
+  newContact: false
 };
 
 export const modalReducer = (state = initialState, action) => {
@@ -16,7 +16,12 @@ export const modalReducer = (state = initialState, action) => {
       return {
         ...state,
         isOpenModal: !state,
-        disabledBtn: true
+        newContact: false
+      };
+    case ADD_CONTACT:
+      return {
+        ...state,
+        newContact: true
       };
     default:
       return state;
