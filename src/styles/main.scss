@@ -95,9 +95,6 @@ body {
   }
 
   &-content {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-
     &__title {
       color: white;
       font-size: 1.5rem;
@@ -226,6 +223,7 @@ body {
       margin-bottom: 1rem;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
     &__label {
@@ -233,7 +231,15 @@ body {
       font-size: 1rem;
       font-weight: bold;
       margin-bottom: 0.5rem;
-      text-transform: capitalize;
+      text-transform: uppercase;
+    }
+
+    &__error {
+      color: black;
+      font-size: 0.6rem;
+      -position: absolute;
+      left: 2px;
+      bottom: -11px;
     }
 
     &__txt {
@@ -279,13 +285,14 @@ body {
     }
 
     &__footer {
+      width: 100%;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: space-between;
       padding: 0 1rem 1rem;
     }
 
-    &__closed {
+    &__btn {
       color: white;
       border: 2px solid white;
       background-color: transparent;
@@ -293,7 +300,20 @@ body {
       border-radius: 1rem;
       font-weight: 600;
       font-size: 1rem;
-      margin:0 1rem 1rem 1rem;
+      margin: 0;
+      opacity: 1;
+      transition: 0.2s;
+
+      &:disabled {
+        cursor: default;
+        pointer-events: all;
+        opacity: 0.5;
+
+        &:hover {
+          color: white;
+          border: 2px solid white;
+        }
+      }
 
       &:hover {
         color: $blue-main;

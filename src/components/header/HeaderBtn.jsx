@@ -1,14 +1,19 @@
+//CORE
 import React from "react";
-import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+//ACTIONS
+import { showModal } from "../../store/actions/isActiveModalActions";
+import { changeNewUser } from "../../store/actions/getUserAction";
 
-export default function HeaderBtn(props) {
+const HeaderBtn = () => {
+  const dispatch = useDispatch();
+
   const onClickBtn = () => {
-    props.modalStatus(true);
-    props.changeModalContent(null);
+    dispatch(changeNewUser());
+    dispatch(showModal());
   };
-  return <button className="contacts-header__add" onClick={onClickBtn} />;
-}
 
-HeaderBtn.propTypes = {
-  modalStatus: PropTypes.func.isRequired,
+  return <button className="contacts-header__add" onClick={onClickBtn} />;
 };
+
+export default HeaderBtn;

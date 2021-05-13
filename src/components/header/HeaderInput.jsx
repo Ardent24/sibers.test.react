@@ -1,21 +1,22 @@
+//CORE
 import React from "react";
-import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+//ACTIONS
+import { filterByUsers } from "../../store/actions/filterUsersAction";
 
-function HeaderInp(props) {
-  const onChangeInp = (event) => props.onChangeSearchUser(event.target.value);
+const HeaderInp = () => {
+  const dispatch = useDispatch();
+
+  const searchUsers = (ev) => dispatch(filterByUsers(ev.target.value));
 
   return (
     <input
       type="search"
       className="contacts-header__search"
       placeholder="Search..."
-      onChange={onChangeInp}
+      onChange={searchUsers}
     />
   );
-}
-
-HeaderInp.propTypes = {
-  onChangeSearchUser: PropTypes.func.isRequired,
 };
 
 export default HeaderInp;
