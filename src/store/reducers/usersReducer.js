@@ -6,6 +6,7 @@ import {
   FILTER_BY_VALUE,
   ADD_NEW_USER,
   LOADING_LS_USERS,
+  EDIT_USER,
 } from "../actions/types";
 //LocalStorageLibrary
 import localStorage from "store";
@@ -17,7 +18,7 @@ const initialState = {
 
 export const listUsers = (state = initialState, action) => {
   const lastState = [...state.users];
-
+  const user = action.payload;
   switch (action.type) {
     case LOADING_USERS:
       return {
@@ -41,7 +42,6 @@ export const listUsers = (state = initialState, action) => {
         filterUsers: filteredUsers,
       };
     case ADD_NEW_USER:
-      const user = action.payload;
       const FILTERED_USERS = sortUsers([...lastState, user]);
 
       localStorage.set("users", {
@@ -52,6 +52,18 @@ export const listUsers = (state = initialState, action) => {
         users: FILTERED_USERS,
         filterUsers: FILTERED_USERS,
       };
+    case EDIT_USER:
+      const filter = lastState.filter((el) => el.id !== user.id);
+      filter.push(user);
+
+      const filterUser = sortUsers(filter);
+      const newState = {
+        users: filterUser,
+        filterUsers: filterUser,
+      }
+
+      localStorage.set("users", newState);
+      return newState;
     default:
       return state;
   }

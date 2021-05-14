@@ -5,14 +5,17 @@ import PropTypes from "prop-types";
 //COMPONENTS
 import ModalBtn from "./ModalBtn";
 
-const ModalFooter = ({ hideModal}) => {
+const ModalFooter = ({ hideModal }) => {
   const isValidForm = useSelector((state) => state.validations.isValidForm);
+  const onChangeNewContact = useSelector(
+    (state) => state.isOpenModal.newContact
+  );
 
   return (
     <footer className={"contacts-modal__footer"}>
       <ModalBtn taskText={"cancel"} hideModal={hideModal} isDisabled={false} />
       <ModalBtn
-        taskText={"ADD"}
+        taskText={onChangeNewContact ? "ADD" : "EDIT"}
         hideModal={hideModal}
         isDisabled={!isValidForm}
       />

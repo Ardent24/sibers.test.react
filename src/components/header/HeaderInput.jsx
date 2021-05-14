@@ -2,7 +2,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 //ACTIONS
-import { filterByUsers } from "../../store/actions/filterUsersAction";
+import { filterByUsers } from "../../store/actions/usersActions";
 
 const HeaderInp = () => {
   const dispatch = useDispatch();

@@ -3,19 +3,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 //ACTIONS
-import { addNewUser } from "../../../store/actions/filterUsersAction";
-import { resetValidation } from "../../../store/actions/validationActions";
+import { addNewUser, editUser } from "../../../store/actions/usersActions";
 
 const ModalBtn = ({ taskText, hideModal, isDisabled }) => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.infoUser);
+  const dispatch = useDispatch();
 
   const onClkBtn = () => {
-    if (taskText === "ADD") {
-      dispatch(addNewUser(user));
-    }
+    if (taskText === "ADD") dispatch(addNewUser(user));
+    if (taskText === "EDIT") dispatch(editUser(user));
     hideModal();
-    dispatch(resetValidation());
   };
 
   return (

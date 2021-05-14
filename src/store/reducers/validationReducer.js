@@ -5,6 +5,7 @@ import {
   INP_VALID,
   IS_VALID_FORM,
   RESET_VALIDATION,
+  FIRST_ONLOAD_VALID
 } from "../actions/types";
 
 const emptyState = {
@@ -49,10 +50,29 @@ export const validationReducer = (state = initialState, action) => {
     case IS_VALID_FORM:
       return {
         ...state,
-        isValidForm: true,
+        isValidForm: action.payload,
       };
     case RESET_VALIDATION:
       return emptyState;
+    case FIRST_ONLOAD_VALID:
+      return {
+        name: {
+          isValid: action.payload,
+          isDirty: false,
+          errorMessage: "incorrect name",
+        },
+        email: {
+          isValid: action.payload,
+          isDirty: false,
+          errorMessage: "incorrect email",
+        },
+        phone: {
+          isValid: action.payload,
+          isDirty: false,
+          errorMessage: "incorrect phone",
+        },
+        isValidForm: action.payload,
+      }
     default:
       return state;
   }

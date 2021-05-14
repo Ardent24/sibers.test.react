@@ -7,12 +7,14 @@ import ModalGroup from "./layouts/ModalGroup";
 import ModalFooter from "./layouts/ModalFooter";
 //ACTIONS
 import { hideModal } from "../../store/actions/isActiveModalActions";
-import { addInfoUser, resetInfoUser } from "../../store/actions/getUserAction";
+import { addInfoUser, resetInfoUser } from "../../store/actions/getUserActions";
 import {
+  firstOnloadValid,
   inpDirty,
   inputNotValid,
   inputValid,
   isValidForm,
+  resetValidation,
 } from "../../store/actions/validationActions";
 //REGEXES
 import { regexPhone, regexMail, regexName } from "../../modules/regex";
@@ -22,7 +24,9 @@ const useInput = (type) => {
   const usersLength = useSelector((state) => state.listUsers.users).length;
   const user = useSelector((state) => state.infoUser);
   const validations = useSelector((state) => state.validations);
-  const changeNewContact = useSelector((state) => state.isOpenModal.newContact)
+  const onChangeNewContact = useSelector(
+    (state) => state.isOpenModal.newContact
+  );
 
   const dispatch = useDispatch();
 
@@ -45,21 +49,42 @@ const useInput = (type) => {
       if (type === "phone") return regexPhone(value);
     };
 
-    if (isDirty && !isRegex(value)) {
-      setTextError(errorMessage);
-      dispatch(inputNotValid(type));
-    } else if (isDirty && isRegex(value)) {
-      setTextError("");
-      dispatch(inputValid(type));
-    } else {
-      setTextError("");
+    //VALIDATION NEW USER
+    if (onChangeNewContact) {
+      if (isDirty && !isRegex(value)) {
+        setTextError(errorMessage);
+        dispatch(inputNotValid(type));
+      } else if (isDirty && isRegex(value)) {
+        setTextError("");
+        dispatch(inputValid(type));
+      } else {
+        dispatch(firstOnloadValid(false));
+        setTextError("");
+      }
     }
-  }, [dispatch, errorMessage, isDirty, type, value]);
+
+    //VALIDATION EDIT USER
+    if (!onChangeNewContact) {
+      if (isDirty && !isRegex(value)) {
+        setTextError(errorMessage);
+        dispatch(inputNotValid(type));
+        dispatch(isValidForm(false));
+      } else if (isDirty && isRegex(value)) {
+        setTextError("");
+        dispatch(inputValid(type));
+      } else {
+        dispatch(firstOnloadValid(true));
+        setTextError("");
+      }
+    }
+  }, [dispatch, errorMessage, isDirty, onChangeNewContact, type, value]);
 
   //ACTIVE BTN MODAL
   useEffect(() => {
     if (nameValid && emailValid && phoneValid) {
-      dispatch(isValidForm());
+      dispatch(isValidForm(true));
+    } else {
+      dispatch(isValidForm(false));
     }
   }, [dispatch, emailValid, nameValid, phoneValid]);
 
@@ -79,11 +104,15 @@ const useInput = (type) => {
     setValue(val);
     dispatch(inpDirty(type));
 
-    if (type === "name") {
+    if (type === "name" && onChangeNewContact) {
       const str = val[0].toUpperCase() + val.slice(1);
       dispatch(addInfoUser(type, str, usersLength));
-    } else {
+    } else if (type === "email" && onChangeNewContact) {
       dispatch(addInfoUser(type, val, usersLength));
+    } else if (type === "phone" && onChangeNewContact) {
+      dispatch(addInfoUser(type, val, usersLength));
+    } else {
+      dispatch(addInfoUser(type, val, user.id));
     }
   };
   const onBlur = (ev) => {
@@ -111,6 +140,7 @@ const Modal = () => {
   const hideModalClick = () => {
     dispatch(hideModal());
     dispatch(resetInfoUser());
+    dispatch(resetValidation());
   };
 
   const outSideModalClick = (ev) => {
@@ -132,7 +162,7 @@ const Modal = () => {
       <form className={cx("contacts-modal__wrapper", { active: isOpenModal })}>
         <header className="contacts-modal__header">
           <h4 className="contacts-modal__title">
-            {newContact ?  "ADD CONTACT" : user.name}
+            {newContact ? "ADD CONTACT" : user.name}
           </h4>
           <button className="contacts-modal__close" onClick={hideModalClick}>
             &times;

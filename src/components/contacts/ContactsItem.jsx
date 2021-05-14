@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 //ACTIONS
-import { getInfoUser } from "../../store/actions/getUserAction";
+import { getInfoUser } from "../../store/actions/getUserActions";
 import { showModal } from "../../store/actions/isActiveModalActions";
 
 const ContactsItem = ({ indexUser, infoUser, listUsers }) => {
