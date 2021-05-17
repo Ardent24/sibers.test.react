@@ -1,5 +1,5 @@
 //CORE
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import cx from "classnames";
 //COMPONENTS
@@ -136,6 +136,7 @@ const Modal = () => {
   const { newContact, isOpenModal } = useSelector((state) => state.isOpenModal);
   const user = useSelector((state) => state.infoUser);
   const dispatch = useDispatch();
+  const modalRef = useRef();
 
   const hideModalClick = () => {
     dispatch(hideModal());
@@ -144,8 +145,7 @@ const Modal = () => {
   };
 
   const outSideModalClick = (ev) => {
-    const modal = document.querySelector(".contacts-modal");
-    ev.preventDefault();
+    const modal = modalRef.current;
 
     if (ev.target === modal) {
       modal.classList.remove("active");
@@ -156,6 +156,7 @@ const Modal = () => {
 
   return (
     <div
+      ref={modalRef}
       className={cx("contacts-modal", { active: isOpenModal })}
       onClick={outSideModalClick}
     >
